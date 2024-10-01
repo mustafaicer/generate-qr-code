@@ -1,9 +1,9 @@
-import customtkinter as tk
+import customtkinter as ctk
 import qrcode as qr
 from PIL import Image
 import os
 
-class App(tk.CTk):
+class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
@@ -24,17 +24,17 @@ class App(tk.CTk):
         self.config(padx=20,pady=20)
 
         # UI
-        self.link_entry = tk.CTkEntry(self,width=460)
+        self.link_entry = ctk.CTkEntry(self,width=460)
         self.link_entry.place(relx=0,rely=0)
 
-        self.convert_button = tk.CTkButton(self,text="Convert text or link to Qr Code",width=200,font=self.button_font,command=self.convert_link)
-        self.convert_button.place(relx=0.5, rely=0.12, anchor=tk.CENTER)
+        self.convert_button = ctk.CTkButton(self,text="Convert text or link to Qr Code",width=200,font=self.button_font,command=self.convert_link)
+        self.convert_button.place(relx=0.5, rely=0.12, anchor=ctk.CENTER)
 
-        self.image_label = tk.CTkLabel(self)
+        self.image_label = ctk.CTkLabel(self)
 
-        self.download_button = tk.CTkButton(self,text="Download Image",font=self.button_font,command=self.download_img)
+        self.download_button = ctk.CTkButton(self,text="Download Image",font=self.button_font,command=self.download_img)
 
-        self.info_label = tk.CTkLabel(self)
+        self.info_label = ctk.CTkLabel(self)
 
     def convert_link(self):
         self.qr_link = self.link_entry.get()
@@ -49,12 +49,12 @@ class App(tk.CTk):
             self.image_label.configure(text="ERROR",font=('Arial',40,'bold'),text_color="red")
 
     def print_qrcode(self,data):
-        photo_image = tk.CTkImage(dark_image=Image.open(data),size=(self.qr_width,self.qr_height))
+        photo_image = ctk.CTkImage(dark_image=Image.open(data),size=(self.qr_width,self.qr_height))
 
         self.image_label.configure(self,height=self.qr_height, width=self.qr_width,text="",image=photo_image)
-        self.image_label.place(relx=0.5,rely=0.5,anchor=tk.CENTER)
+        self.image_label.place(relx=0.5,rely=0.5,anchor=ctk.CENTER)
 
-        self.download_button.place(relx=0.5,rely=0.88,anchor=tk.CENTER)
+        self.download_button.place(relx=0.5,rely=0.88,anchor=ctk.CENTER)
 
     def download_img(self):
         try:
@@ -65,7 +65,7 @@ class App(tk.CTk):
         except:
             self.info_label.configure(text="Error", text_color="Red", font=('Arial',18,'normal'))
         finally:
-            self.info_label.place(relx=0.5,rely=0.97,anchor=tk.CENTER)
+            self.info_label.place(relx=0.5,rely=0.97,anchor=ctk.CENTER)
 
 if __name__ == "__main__":
     window = App()
